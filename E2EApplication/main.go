@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/phanimullapudi/dockerpractice/E2EApplication/internal/database"
+	redisConnectRepo "github.com/phanimullapudi/dockerpractice/E2EApplication/internal/database"
 )
 
 type Poll struct {
@@ -13,9 +13,12 @@ type Poll struct {
 
 func main() {
 
-	redisclient := database.NewRedisConnect()
+	redisclient := redisConnectRepo.ConnectDB()
 
 	pong, err := redisclient.Ping().Result()
-	fmt.Println(pong, err)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(pong)
 
 }
